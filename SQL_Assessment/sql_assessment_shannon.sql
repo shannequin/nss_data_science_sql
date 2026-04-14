@@ -184,7 +184,7 @@ ANSWER: 203 countries with event count
 -- You do not need to include all countries in this query, only the ones that won gold medals.
 SELECT
 	c.id,
-	COUNT(w.event) AS gold_count
+	COUNT(DISTINCT w.event) AS gold_count
 FROM countries c
 	LEFT JOIN winter_games w ON c.id = w.country_id
 WHERE w.gold = 1
@@ -192,7 +192,7 @@ GROUP BY c.id
 ORDER BY gold_count DESC;
 
 /*
-ANSWER: 14 countries with total 47 gold
+ANSWER: 14 countries with total 33 gold
 */
 
 -- c. Combine your results for parts a and b into a table that gives, for each country in the countries table,
@@ -210,7 +210,7 @@ WITH
 	winter_countries_golds AS (
 		SELECT
 			c.id,
-			COUNT(w.event) AS gold_count
+			COUNT(DISTINCT w.event) AS gold_count
 		FROM countries c
 			LEFT JOIN winter_games w ON c.id = w.country_id
 		WHERE w.gold = 1
